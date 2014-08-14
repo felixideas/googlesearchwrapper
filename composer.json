@@ -1,0 +1,15 @@
+{
+    "name": "wingsuitist/googlesearchwrapper",
+    "description": "PHP Google Search Wrapper based on HTTPFUL",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Jonas Felix",
+            "email": "jonas.felix@icloud.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+	"nategood/httpful": "dev-master"
+    }
+}

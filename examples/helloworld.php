@@ -1,6 +1,9 @@
 <?php
+
+require('../vendor/autoload.php');
+
 /*
- * Copyright (C) 2014 Jonas Felix
+ * Copyright (C) 2014 Jonas Felix <jonas.felix@icloud.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,33 +20,5 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace GoogleSearchWrapper;
-
-/**
- * Description of newPHPClass
- *
- * @author Jonas Felix
- */
-class Search {
-	private $baseUrl = "https://ajax.googleapis.com/ajax/services/search/web";
-	private $defaultParameters = array(
-		'v' => '1.0',
-	);
-	private $query;
-	
-	/**
-	 * 
-	 */
-	private function __construct() {
-	}
-	
-	public function query($query) {
-		$this->query = $query;
-	}
-	
-	public static function search($query) {
-		$search = new Search();
-		$seqrch->query($query);
-		return $search;
-	}
-}
+$helloWorldSearch = \GoogleSearchWrapper\Service\Search::search('Hello World')->run()->getAssoc();
+var_dump($helloWorldSearch);

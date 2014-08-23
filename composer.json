@@ -8,12 +8,11 @@
 			"email": "jonas.felix@icloud.com"
 		}
 	],
-    "autoload": {
-        "classmap": [
-            "src/"
-        ]
-    },
-    "include-path": ["src/"],
+	"autoload": {
+		"psr-4": {
+			"GoogleSearchWrapper\\": ["src/"]
+		}
+	},
 	"minimum-stability": "dev",
 	"require": {
 		"nategood/httpful": "dev-master"

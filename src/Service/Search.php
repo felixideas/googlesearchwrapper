@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2014 Jonas Felix
+ * Copyright (C) 2014 Jonas Felix <jonas.felix@icloud.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,7 +21,7 @@
 namespace GoogleSearchWrapper\Service;
 
 /**
- * Description of newPHPClass
+ * Representing a search string
  *
  * @author Jonas Felix
  */
@@ -34,26 +34,46 @@ class Search {
 	private $query;
 
 	/**
-	 * 
+	 * private to prevent direct instances
+	 * use static search instead
 	 */
 	private function __construct() {
-		
 	}
 
+	/**
+	 * set query string
+	 * 
+	 * @param string $query search string
+	 */
 	public function setQuery($query) {
 		$this->query = $query;
 	}
 
+	/**
+	 * combine the default parameters and search string
+	 * 
+	 * @return string search url
+	 */
 	public function getUrl() {
 		$parameters = $this->defaultParameters;
 		$parameters['q'] = $this->query;
 		return $this->baseUrl . '?' . http_build_query($parameters);
 	}
 
+	/**
+	 * return the result as associative array
+	 * 
+	 * @return array search result
+	 */
 	public function getAssoc() {
 		return json_decode($this->response->body, true);
 	}
 
+	/**
+	 * run the search
+	 * 
+	 * @return \GoogleSearchWrapper\Service\Search
+	 */
 	public function run() {
 		$this->response = \Httpful\Request::get($this->getUrl())
 				->expects('json')
@@ -62,10 +82,15 @@ class Search {
 		return $this;
 	}
 
+	/**
+	 * build a new search object
+	 * 
+	 * @param string $query search 
+	 * @return \GoogleSearchWrapper\Service\Search
+	 */
 	public static function search($query) {
 		$search = new Search();
 		$search->setQuery($query);
 		return $search;
 	}
-
 }

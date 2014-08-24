@@ -21,4 +21,5 @@ require('../vendor/autoload.php');
  */
 
 $helloWorldSearch = \GoogleSearchWrapper\Service\Search::search('Hello World')->run()->getAssoc();
-var_dump($helloWorldSearch);
+
+print_r($helloWorldSearch);

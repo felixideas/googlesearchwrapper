@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2014 Jonas Felix <jonas.felix@icloud.com>
+ * Copyright (C) 2014 Jonas Felix <jonas.felix@felixideas.ch>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,10 +18,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace GoogleSearchWrapper\Service;
+namespace felixideas\GoogleSearchWrapper;
 
 /**
- * Representing a search string
+ * Representing a search request
  *
  * @author Jonas Felix
  */
@@ -32,6 +32,21 @@ class Search {
 		'v' => '1.0',
 	);
 	private $query;
+	
+	/**
+	 * @var \Httpful\Request 
+	 */
+	public $httpfulRequest;
+	
+	/**
+	 * @var \Httpful\Response  
+	 */
+	public $httpfulResponse;
+	
+	/**
+	 * @var \felixideas\GoogleSearchWrapper\Result
+	 */
+	public $result;
 
 	/**
 	 * private to prevent direct instances
@@ -59,27 +74,27 @@ class Search {
 		$parameters['q'] = $this->query;
 		return $this->baseUrl . '?' . http_build_query($parameters);
 	}
-
-	/**
-	 * return the result as associative array
-	 * 
-	 * @return array search result
-	 */
-	public function getAssoc() {
-		return json_decode($this->response->body, true);
-	}
-
+	
 	/**
 	 * run the search
 	 * 
 	 * @return \GoogleSearchWrapper\Service\Search
 	 */
 	public function run() {
-		$this->response = \Httpful\Request::get($this->getUrl())
+		$this->httpfulResponse = $this->httpfulRequest->send();
+		$this->result = new Result($this->httpfulResponse, $this);
+		return $this->result;
+	}
+	
+	/**
+	 * build the request object with default settings
+	 * 
+	 * @return void
+	 */
+	private function buildRequest() {
+		$this->httpfulRequest = \Httpful\Request::get($this->getUrl())
 				->expects('json')
-				->autoParse(false)
-				->send();
-		return $this;
+				->autoParse(false);
 	}
 
 	/**
@@ -91,6 +106,7 @@ class Search {
 	public static function search($query) {
 		$search = new Search();
 		$search->setQuery($query);
+		$search->buildRequest();
 		return $search;
 	}
 }

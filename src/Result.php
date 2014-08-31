@@ -1,7 +1,5 @@
 <?php
 
-require('../vendor/autoload.php');
-
 /*
  * Copyright (C) 2014 Jonas Felix <jonas.felix@felixideas.ch>
  *
@@ -20,6 +18,41 @@ require('../vendor/autoload.php');
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-$helloWorldSearch = \felixideas\GoogleSearchWrapper\Search::search('Hello World')->run()->getAssoc();
+namespace felixideas\GoogleSearchWrapper;
 
-print_r($helloWorldSearch);
+/**
+ * The Result of a Google Search
+ *
+ * @author jf
+ */
+class Result {
+	/**
+	 * @var \Httpful\Response  
+	 */
+	public $httpfulResponse;
+	
+	/**
+	 * @var \felixideas\GoogleSearchWrapper\Search
+	 */
+	public $search;
+	
+	/**
+	 * 
+	 * @param \Httpful\Response $httpfulResponse
+	 * @param \felixideas\GoogleSearchWrapper\Search $search
+	 */
+	public function __construct($httpfulResponse, $search) {
+		$this->search = $search;
+		$this->httpfulResponse = $httpfulResponse;
+	}
+	
+
+	/**
+	 * return the result as associative array
+	 * 
+	 * @return array search result
+	 */
+	public function getAssoc() {
+		return json_decode($this->httpfulResponse->body, true);
+	}
+}

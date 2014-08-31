@@ -5,12 +5,12 @@
 	"authors": [
 		{
 			"name": "Jonas Felix",
-			"email": "jonas.felix@icloud.com"
+			"email": "jonas.felix@felixideas.ch"
 		}
 	],
 	"autoload": {
 		"psr-4": {
-			"GoogleSearchWrapper\\": ["src/"]
+			"felixideas\\GoogleSearchWrapper\\": ["src/"]
 		}
 	},
 	"minimum-stability": "dev",

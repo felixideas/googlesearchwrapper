@@ -26,10 +26,15 @@ namespace felixideas\GoogleSearchWrapper;
  * @author Jonas Felix
  */
 class Search {
+	
+	
+	const RSZ_MIN = 1;
+	const RSZ_MAX = 8;
 
 	private $baseUrl = "https://ajax.googleapis.com/ajax/services/search/web";
 	private $defaultParameters = array(
 		'v' => '1.0',
+		'rsz' => self::RSZ_MAX
 	);
 	private $query;
 	
@@ -82,7 +87,7 @@ class Search {
 	 */
 	public function run() {
 		$this->httpfulResponse = $this->httpfulRequest->send();
-		$this->result = new Result($this->httpfulResponse, $this);
+		$this->result = new Result($this);
 		return $this->result;
 	}
 	

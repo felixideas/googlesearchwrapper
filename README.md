@@ -10,7 +10,7 @@ add the package to your composer.json:
     "require": {
 		"wingsuitist/googlesearchwrapper": "dev-master",
 
-run composer update in your composer project root
+run _composer update_ in your composer project root
 
 include autoloader from composer:
 
@@ -20,13 +20,17 @@ create a search object:
 
 	$search = \felixideas\GoogleSearchWrapper\Search::search('Hello World'); 
 
-let it search with and get the result object:
+_coming soon: all the options that you can set for the search_
+
+let it search and get the result object:
 
 	$result = $search->run()
 
-get the data from the result object:
+get the full response from the result object:
 
-	$result->getAssoc();
+	$result->getFullResponse();
+
+_coming soon: iterator implementation for the result object_
 
 ## further documentation:
 

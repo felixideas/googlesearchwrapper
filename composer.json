@@ -1,7 +1,7 @@
 {
 	"name": "wingsuitist/googlesearchwrapper",
 	"description": "PHP Google Search Wrapper based on HTTPFUL",
-	"license": "GPLv2",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "Jonas Felix",
